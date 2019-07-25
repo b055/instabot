@@ -11,12 +11,18 @@ import schedule
 from instabot import Bot, utils
 
 import config
+import argparse
 
+parser = argparse.ArgumentParser(add_help=True)
+parser.add_argument('-f', type=str, help="function")
+args = parser.parse_args()
+
+function = args.f
 bot = Bot(comments_file=config.COMMENTS_FILE,
           blacklist_file=config.BLACKLIST_FILE,
           whitelist_file=config.WHITELIST_FILE,
           friends_file=config.FRIENDS_FILE)
-bot.login()
+bot.login(username="rafikizjuice_ug")
 bot.logger.info("ULTIMATE script. Safe to run 24/7!")
 
 random_user_file = utils.file(config.USERS_FILE)
@@ -47,6 +53,8 @@ def like_followers_from_random_user_file():
 def follow_followers():
     bot.follow_followers(random_user_file.random(), nfollows=config.NUMBER_OF_FOLLOWERS_TO_FOLLOW)
 
+def follow_following():
+    bot.follow_following(random_user_file.random(), nfollows=config.NUMBER_OF_FOLLOWING_TO_FOLLOW)
 
 def comment_medias():
     bot.comment_medias(bot.get_timeline_medias())
@@ -118,18 +126,20 @@ def run_threaded(job_fn):
     job_thread.start()
 
 
-schedule.every(1).hour.do(run_threaded, stats)
-schedule.every(8).hours.do(run_threaded, like_hashtags)
-schedule.every(2).hours.do(run_threaded, like_timeline)
-schedule.every(1).days.at("16:00").do(run_threaded, like_followers_from_random_user_file)
-schedule.every(2).days.at("11:00").do(run_threaded, follow_followers)
-schedule.every(16).hours.do(run_threaded, comment_medias)
-schedule.every(1).days.at("08:00").do(run_threaded, unfollow_non_followers)
-schedule.every(12).hours.do(run_threaded, follow_users_from_hashtag_file)
-schedule.every(6).hours.do(run_threaded, comment_hashtag)
-schedule.every(1).days.at("21:28").do(run_threaded, upload_pictures)
-schedule.every(4).days.at("07:50").do(run_threaded, put_non_followers_on_blacklist)
+locals()[function]()
+#schedule.every(1).hour.do(run_threaded, stats)
+#schedule.every(8).hours.do(run_threaded, like_hashtags)
+#schedule.every(2).hours.do(run_threaded, like_timeline)
+#schedule.every(1).days.at("16:00").do(run_threaded, like_followers_from_random_user_file)
+#schedule.every(1).hour.do(run_threaded, follow_followers)
+#schedule.every(1).hour.do(run_threaded, follow_following)
+#schedule.every(16).hours.do(run_threaded, comment_medias)
+#schedule.every(1).days.at("08:00").do(run_threaded, unfollow_non_followers)
+#schedule.every(12).hours.do(run_threaded, follow_users_from_hashtag_file)
+#schedule.every(6).hours.do(run_threaded, comment_hashtag)
+#schedule.every(1).days.at("21:28").do(run_threaded, upload_pictures)
+#schedule.every(4).days.at("07:50").do(run_threaded, put_non_followers_on_blacklist)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+#while True:
+#    schedule.run_pending()
+#    time.sleep(1)

@@ -37,12 +37,16 @@ FOLLOW_MESSAGE = "Follow @my_account for the best photos!"
 # [random caption taken from PHOTO_CAPTIONS]
 # FOLLOW_MESSAGE
 
-NUMBER_OF_FOLLOWERS_TO_FOLLOW = 15
+NUMBER_OF_FOLLOWERS_TO_FOLLOW = 50
 # Specifies the number of people to follow each time the function
 # bot.follow_followers gets executed. By default, this function gets
 # executed by the bot every 2 days at 11:00.
 
-NUMBER_OF_NON_FOLLOWERS_TO_UNFOLLOW = 50
+NUMBER_OF_FOLLOWING_TO_FOLLOW = 55
+# Specifies the number of people to follow each time the function
+# bot.follow_following gets executed.
+
+NUMBER_OF_NON_FOLLOWERS_TO_UNFOLLOW = 500
 # Specifies the number of people to unfollow each time the function
 # bot.unfollow_non_followers gets executed. By default, this function
 # gets executed every day at 08:00.

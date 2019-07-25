@@ -1,2 +1,11 @@
-dog
-cat
+healthyliving
+healthyfood
+exercise
+weightloss
+diet
+life
+healthylifestyle
+wellness
+fitness
+nutrition
+workout
