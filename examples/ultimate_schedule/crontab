@@ -20,7 +20,7 @@
 */10 9-21 * * * HOME=/var/tmp/bbb && PATH=$HOME/.local/bin:$PATH && cd /var/tmp/bbb/instabot/examples/ultimate_schedule && python3 ultimate.py -f comment_medias
 
 #schedule.every(1).days.at("08:00").do(run_threaded, unfollow_non_followers)
-@weekly HOME=/var/tmp/bbb && PATH=$HOME/.local/bin:$PATH && cd /var/tmp/bbb/instabot/examples/ultimate_schedule && python3 ultimate.py -f unfollow_non_followers
+0 15 * * 1,4 HOME=/var/tmp/bbb && PATH=$HOME/.local/bin:$PATH && cd /var/tmp/bbb/instabot/examples/ultimate_schedule && python3 ultimate.py -f unfollow_non_followers
 
 #schedule.every(12).hours.do(run_threaded, follow_users_from_hashtag_file)
 */18 9-21 * * * HOME=/var/tmp/bbb && PATH=$HOME/.local/bin:$PATH && cd /var/tmp/bbb/instabot/examples/ultimate_schedule && python3 ultimate.py -f follow_users_from_hashtag_file

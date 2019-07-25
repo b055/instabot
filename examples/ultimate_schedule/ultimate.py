@@ -21,7 +21,8 @@ function = args.f
 bot = Bot(comments_file=config.COMMENTS_FILE,
           blacklist_file=config.BLACKLIST_FILE,
           whitelist_file=config.WHITELIST_FILE,
-          friends_file=config.FRIENDS_FILE)
+          friends_file=config.FRIENDS_FILE,
+          max_follows_per_day=500)
 bot.login(username="rafikizjuice_ug")
 bot.logger.info("ULTIMATE script. Safe to run 24/7!")
 

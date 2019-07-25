@@ -46,7 +46,7 @@ NUMBER_OF_FOLLOWING_TO_FOLLOW = 55
 # Specifies the number of people to follow each time the function
 # bot.follow_following gets executed.
 
-NUMBER_OF_NON_FOLLOWERS_TO_UNFOLLOW = 500
+NUMBER_OF_NON_FOLLOWERS_TO_UNFOLLOW = 1000
 # Specifies the number of people to unfollow each time the function
 # bot.unfollow_non_followers gets executed. By default, this function
 # gets executed every day at 08:00.
