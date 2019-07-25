@@ -125,7 +125,7 @@ def run_threaded(job_fn):
     job_thread = threading.Thread(target=job_fn)
     job_thread.start()
 
-
+bot.logger.info("Running fucntion " + function)
 locals()[function]()
 #schedule.every(1).hour.do(run_threaded, stats)
 #schedule.every(8).hours.do(run_threaded, like_hashtags)
