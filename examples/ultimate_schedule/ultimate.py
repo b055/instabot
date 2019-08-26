@@ -12,6 +12,7 @@ from instabot import Bot, utils
 
 import config
 import argparse
+import re
 
 parser = argparse.ArgumentParser(add_help=True)
 parser.add_argument('-f', type=str, help="function")
@@ -23,7 +24,7 @@ if os.path.isfile(config.PROXY_FILE):
     proxy_file = open(config.PROXY_FILE, "r")
     if proxy_file:
         working_proxy = proxy_file.readline()
-        if working_proxy and working_proxy.match("https://*":
+        if working_proxy and re.match(working_proxy, "https://*:*"):
             proxy = working_proxy
 
 function = args.f
