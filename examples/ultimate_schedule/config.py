@@ -14,6 +14,9 @@ HASHTAGS_FILE = "hashtag_database.txt"
 # The file containing hashtags you want to track: the bot will like and comment
 # photos and follow users using the hashtags in this file
 
+PROXY_FILE = "proxy.txt"
+# The file the contains the latest working proxy
+
 USERS_FILE = "username_database.txt"
 # Same as HASHTAGS_FILE, but with users. The bot will follow those users'
 # followers and like their posts
@@ -46,7 +49,7 @@ NUMBER_OF_FOLLOWING_TO_FOLLOW = 55
 # Specifies the number of people to follow each time the function
 # bot.follow_following gets executed.
 
-NUMBER_OF_NON_FOLLOWERS_TO_UNFOLLOW = 1000
+NUMBER_OF_NON_FOLLOWERS_TO_UNFOLLOW = 500
 # Specifies the number of people to unfollow each time the function
 # bot.unfollow_non_followers gets executed. By default, this function
 # gets executed every day at 08:00.

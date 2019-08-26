@@ -15,13 +15,23 @@ import argparse
 
 parser = argparse.ArgumentParser(add_help=True)
 parser.add_argument('-f', type=str, help="function")
+parser.add_argument('-p', type=str, help="proxy")
 args = parser.parse_args()
+
+proxy = args.p
+if os.path.isfile(config.PROXY_FILE):
+    proxy_file = open(config.PROXY_FILE, "r")
+    if proxy_file:
+        working_proxy = proxy_file.readline()
+        if working_proxy and working_proxy.match("https://*":
+            proxy = working_proxy
 
 function = args.f
 bot = Bot(comments_file=config.COMMENTS_FILE,
           blacklist_file=config.BLACKLIST_FILE,
           whitelist_file=config.WHITELIST_FILE,
-          friends_file=config.FRIENDS_FILE)
+          friends_file=config.FRIENDS_FILE,
+          proxy=proxy)
 bot.login(username="rafikizjuice_ug")
 bot.logger.info("ULTIMATE script. Safe to run 24/7!")
 

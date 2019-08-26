@@ -69,7 +69,7 @@ class API(object):
         self.uuid = self.generate_UUID(uuid_type=True)
 
     def login(self, username=None, password=None, force=False, proxy=None,
-              use_cookie=False, cookie_fname=None):
+              use_cookie=False, cookie_fname=None, ignore_429_sleep=False):
         if password is None:
             username, password = get_credentials(username=username)
 
@@ -99,7 +99,7 @@ class API(object):
             self.set_proxy()  # Only happens if `self.proxy`
             url = 'si/fetch_headers/?challenge_type=signup&guid={uuid}'
             url = url.format(uuid=self.generate_UUID(False))
-            if self.send_request(url, login=True):
+            if self.send_request(url, login=True, ignore_429_sleep=ignore_429_sleep):
                 data = json.dumps({
                     'phone_id': self.generate_UUID(True),
                     '_csrftoken': self.token,
@@ -110,7 +110,7 @@ class API(object):
                     'login_attempt_count': '0',
                 })
 
-                if self.send_request('accounts/login/', data, True):
+                if self.send_request('accounts/login/', data, True, ignore_429_sleep=True):
                     self.save_successful_login(use_cookie, cookie_fname)
                     return True
                 elif self.last_json.get('error_type', '') == 'checkpoint_challenge_required':
@@ -239,7 +239,7 @@ class API(object):
             self.session.proxies['http'] = scheme + self.proxy
             self.session.proxies['https'] = scheme + self.proxy
 
-    def send_request(self, endpoint, post=None, login=False, with_signature=True, headers=None):
+    def send_request(self, endpoint, post=None, login=False, with_signature=True, headers=None, ignore_429_sleep=False):
         if (not self.is_logged_in and not login):
             msg = "Not logged in!"
             self.logger.critical(msg)
@@ -283,11 +283,14 @@ class API(object):
                 self.logger.error("Error checking for `feedback_required`, response text is not JSON")
 
             if response.status_code == 429:
-                sleep_minutes = 5
-                self.logger.warning(
-                    "That means 'too many requests'. I'll go to sleep "
-                    "for {} minutes.".format(sleep_minutes))
-                time.sleep(sleep_minutes * 60)
+                if ignore_429_sleep:
+                    self.logger.info("Not waiting for error 429 delay")
+                else:
+                    sleep_minutes = 5
+                    self.logger.warning(
+                        "That means 'too many requests'. I'll go to sleep "
+                        "for {} minutes.".format(sleep_minutes))
+                    time.sleep(sleep_minutes * 60)
             elif response.status_code == 400:
                 response_data = json.loads(response.text)
 
